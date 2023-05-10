@@ -25,4 +25,19 @@ public class ListDEService {
     //adicionar al comienzo
     public void addLedToStart(Led led){leds.addToStartLed(led);}
 
+    //enceder led
+    public void lightLed(int id){leds.lightLed(id);}
+
+    //encender todo los led
+    public void lightAllLed(){leds.lightAllLed();}
+
+    //apagar todos los led
+    public void offAllLed(){leds.offAllLed();}
+
+    //apagar un led
+    public void offLed(int id){leds.offLed(id);}
+
+    //enceder y apagar los leds desde la mitad de la mista
+    public void lightLedInMiddle(){leds.lightLedInMiddle();}
+
 }

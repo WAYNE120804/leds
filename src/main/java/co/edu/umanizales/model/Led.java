@@ -7,7 +7,7 @@ import java.time.LocalTime;
 
 public class Led {
     private static int nextid=1;
-    private int id ;
+    private  int id ;
     private boolean state;
     private LocalTime dateOn;
     private LocalTime dateOff;
@@ -17,7 +17,7 @@ public class Led {
         nextid++;
         this.state = false;
         this.dateOn = null;
-        this.dateOff = LocalTime.now();
+        this.dateOff = null;
     }
 
     public Led() {}

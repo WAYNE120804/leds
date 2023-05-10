@@ -25,14 +25,14 @@ public class ListDEController {
                 200,listDEService.putToString(),null), HttpStatus.OK);
     }
 
-    //adicionar mascota
+    //adicionar led
     @PostMapping
     public ResponseEntity<ResponseDTO> addLed(Led led) {
 
         // Establecer los valores de los atributos utilizando los métodos setters
         led.setState(false); // establecer el estado en "false"
         led.setDateOn(null); // el atributo "dataon" se establecerá más adelante cuando el LED se encienda
-        led.setDateOff(LocalTime.now()); // establecer la hora actual como la hora en que se apagó el LED
+        led.setDateOff(null); // establecer la hora actual como la hora en que se apagó el LED
 
         // Agregar el nuevo objeto Led a la lista
         listDEService.addLed(led);
@@ -40,6 +40,47 @@ public class ListDEController {
         return new ResponseEntity<>(new ResponseDTO(200, "Se ha adicionado el led", null),
                 HttpStatus.OK);
     }
+
+    //encender un led por id
+    @GetMapping(path ="/lightled/{id}")
+    public ResponseEntity<ResponseDTO> lightLed(@PathVariable int id){
+        listDEService.lightLed(id);
+        return new ResponseEntity<>(new ResponseDTO(
+                200,"se ha encendido el led",null), HttpStatus.OK);
+    }
+
+    //enceder todos los leds
+    @GetMapping(path ="/lightallled")
+    public ResponseEntity<ResponseDTO> lightAllLed(){
+        listDEService.lightAllLed();
+        return new ResponseEntity<>(new ResponseDTO(
+                200,"se ha encendido todos los bombillos",null), HttpStatus.OK);
+    }
+
+    //apagar un led
+    @GetMapping(path ="/offled/{id}")
+    public ResponseEntity<ResponseDTO> offLed(@PathVariable int id){
+        listDEService.offLed(id);
+        return new ResponseEntity<>(new ResponseDTO(
+                200,"se ha apagado el led",null), HttpStatus.OK);
+    }
+
+    //apgar todos los leds
+    @GetMapping(path ="/offallled")
+    public ResponseEntity<ResponseDTO> offAllLed(){
+        listDEService.offAllLed();
+        return new ResponseEntity<>(new ResponseDTO(
+                200,"se ha apagado todos los bombillos",null), HttpStatus.OK);
+    }
+
+    //enceder y apagar los leds desde la mitad de la mista
+    @GetMapping(path ="/lightledinmiddle")
+    public ResponseEntity<ResponseDTO> lightLedInMiddle(){
+        listDEService.lightLedInMiddle();
+        return new ResponseEntity<>(new ResponseDTO(
+                200,"se apagaron y encendiero los bombillos",null), HttpStatus.OK);
+    }
+
 
 
 
