@@ -80,6 +80,12 @@ public class ListDEController {
         return new ResponseEntity<>(new ResponseDTO(
                 200,"se apagaron y encendiero los bombillos",null), HttpStatus.OK);
     }
+    @GetMapping(path ="/resertled")
+    public ResponseEntity<ResponseDTO> resertLed(){
+        listDEService.resertLed();
+        return new ResponseEntity<>(new ResponseDTO(
+                200,"bombillos reseteados",null), HttpStatus.OK);
+    }
 
 
 

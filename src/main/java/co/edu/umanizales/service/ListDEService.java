@@ -40,4 +40,7 @@ public class ListDEService {
     //enceder y apagar los leds desde la mitad de la mista
     public void lightLedInMiddle(){leds.lightLedInMiddle();}
 
+    //resetear
+    public void resertLed(){leds.resertLed();}
+
 }
