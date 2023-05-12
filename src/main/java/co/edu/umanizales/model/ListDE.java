@@ -168,15 +168,115 @@ public class ListDE {
 
     // pararme en la mitad de la lista y empezar a prender los leds
     /*
-    recorro la lista hasta estar en la mitad, cuando este en la mitad enciendo ese led, espero un segundo y lo apago
-    despues paso al siguiente y al anterior con un segundo temporal que comienze desde ese nodo de la mitdad
-    y hago lo mismo lo enciendo espero un segundo y
-    los apago. asi consecutivamente
-    hasta llegar al comienzo y final de la lista
+    Pregunto si la lista tiene datos
+
+    si los tiene
+
+    si la lista solo tiene a cabeza prendo a cabeza espero un seguno y la apago, actulizando su hora de encenido y
+    apagado
+    el tamaño lo divido entre dos y compruebo si genera si el numero es par o impar.
+
+    si es par recorro la lista hasta llegar a la mitad y pongo el primer temporal en ese nodo y el segundo temporal lo
+    pongo el nodo siguiente, despues digo que minetras previous y next sean difernetes anulos los temporales reocrra
+    cada nodo prendan, actualicen la hora de encenidido, que esperen un segundo y lo apguen y actulicen la hora
+    de apgado asi hasta llegar a los extremos.
+
+    si la lista es impar hago que los dos temporales se paren en el nodo de la mitad de la lista  y hago que la recorran
+    hasta que previous y next sean diferentes a nulos.
+
      */
 
+    public void lightLedInMiddle(){
+        if(this.head.getNext()!=null){
+            int middle = this.size / 2;
+            NodeDE temp = this.head;
+            NodeDE temp2=this.head;
+            int i=0;
+            if (size%2==0){
+                if (i==middle){
+                    temp2.getData().setState(true);
+                    temp2.getData().setDateOn(LocalTime.now());
+                    temp=temp.getNext();
+                    temp.getData().setState(true);
+                    temp.getData().setDateOn(LocalTime.now());
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    temp2.getData().setState(false);
+                    temp2.getData().setDateOff(LocalTime.now());
+                    temp.getData().setState(false);
+                    temp.getData().setDateOff(LocalTime.now());
+                    while (temp2.getPrevi()!=this.head&&temp.getNext().getNext()!=null){
+                        temp2.getData().setState(true);
+                        temp2.getData().setDateOn(LocalTime.now());
+                        temp.getData().setState(true);
+                        temp.getData().setDateOn(LocalTime.now());
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        temp2.getData().setState(false);
+                        temp2.getData().setDateOff(LocalTime.now());
+                        temp.getData().setState(false);
+                        temp.getData().setDateOff(LocalTime.now());
+
+                        temp2=temp2.getPrevi();
+                        temp=temp.getNext();
+                    }
+                }else{
+                    temp2.getData().setState(true);
+                    temp2.getData().setDateOn(LocalTime.now());
+                    temp.getData();
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    temp2.getData().setState(false);
+                    temp2.getData().setDateOff(LocalTime.now());
+                    while (temp2.getPrevi()!=this.head&&temp.getNext().getNext()!=null){
+                        temp2.getData().setState(true);
+                        temp2.getData().setDateOn(LocalTime.now());
+                        temp.getData().setState(true);
+                        temp.getData().setDateOn(LocalTime.now());
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        temp2.getData().setState(false);
+                        temp2.getData().setDateOff(LocalTime.now());
+                        temp.getData().setState(false);
+                        temp.getData().setDateOff(LocalTime.now());
+
+                        temp2=temp2.getPrevi();
+                        temp=temp.getNext();
+                    }
+
+
+                }
+
+            }
+
+        }else {
+            this.head.getData().setState(true);
+            this.head.getData().setDateOn(LocalTime.now());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            this.head.getData().setState(false);
+            this.head.getData().setDateOff(LocalTime.now());
+        }
+    }
+
+    /*
+
     public void lightLedInMiddle() {
-        // 1. Comprobar que la lista no está vacía
         if (this.head == null) {
             return;
         }
@@ -243,6 +343,8 @@ public class ListDE {
                 previ = previ.getPrevi();
             }
     }
+
+     */
 
 
 
