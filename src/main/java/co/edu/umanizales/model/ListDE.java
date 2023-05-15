@@ -187,7 +187,7 @@ public class ListDE {
      */
 
     public void lightLedInMiddle(){
-        if(this.head.getNext()!=null){
+        if(this.head!=null){
             int middle = this.size / 2;
             NodeDE temp = this.head;
             NodeDE temp2=this.head;

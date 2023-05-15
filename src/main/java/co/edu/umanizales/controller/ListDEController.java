@@ -29,10 +29,9 @@ public class ListDEController {
     @PostMapping
     public ResponseEntity<ResponseDTO> addLed(Led led) {
 
-        // Establecer los valores de los atributos utilizando los métodos setters
-        led.setState(false); // establecer el estado en "false"
-        led.setDateOn(null); // el atributo "dataon" se establecerá más adelante cuando el LED se encienda
-        led.setDateOff(null); // establecer la hora actual como la hora en que se apagó el LED
+        led.setState(false);
+        led.setDateOn(null);
+        led.setDateOff(null);
 
         // Agregar el nuevo objeto Led a la lista
         listDEService.addLed(led);
