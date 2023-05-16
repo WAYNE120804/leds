@@ -4,66 +4,59 @@ package co.edu.umanizales.model;
 import lombok.Data;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 @Data
 public class ListDE {
     private NodeDE head;
     private int size;
 
-    public String toString(){
-        StringBuilder sb = new StringBuilder();
-        NodeDE temp = this.head;
-        while (temp != null) {
-            // Acceder al objeto Led almacenado en el nodo actual
-            Led led = temp.getData();
-
-            // Imprimir los valores de los atributos del objeto Led
-            sb.append("[{ID: ").append(led.getId()).append("}..");
-            sb.append("{Estado: ").append(led.isState()).append("}..");
-            sb.append("{Fecha de encendido: ").append(led.getDateOn()).append("}..");
-            sb.append("{Fecha de apagado: ").append(led.getDateOff()).append("}]--");
-
-
-            // Mover el puntero al siguiente nodo
-            temp = temp.getNext();
+    public ArrayList<Led> printList() {
+        ArrayList<Led> leds = new ArrayList<>();
+        if (this.head != null) {
+            NodeDE temp = this.head;
+            do {
+                leds.add(temp.getData());
+                temp = temp.getNext();
+            } while (temp != null);
         }
-        return sb.toString();
+        return leds;
     }
 
-    public void addLed(Led led)  {
-        if (this.head!=null){
-            NodeDE temp=this.head;
-            while (temp.getNext()!=null){
-                temp=temp.getNext();
+    public void addLed(Led led) {
+        if (this.head != null) {
+            NodeDE temp = this.head;
+            while (temp.getNext() != null) {
+                temp = temp.getNext();
             }
-            NodeDE newNode= new NodeDE(new Led(false,null, null));
+            NodeDE newNode = new NodeDE(new Led(false, null, null));
             temp.setNext(newNode);
             newNode.setPrevi(temp);
-        }else {
-            NodeDE newNode=new NodeDE(new Led(false,null, null));
+        } else {
+            NodeDE newNode = new NodeDE(new Led(false, null, null));
             setHead(newNode);
         }
         size++;
     }
 
-    public void addToStartLed(Led led){
-        NodeDE newNode=new NodeDE(led);
-        if(this.head!=null){
+    public void addToStartLed(Led led) {
+        NodeDE newNode = new NodeDE(led);
+        if (this.head != null) {
             this.head.setPrevi(newNode);
         }
-        this.head=newNode;
+        this.head = newNode;
         size++;
     }
 
     //resetear
-    public void resertLed(){
-        if (this.head!=null){
-            NodeDE temp=this.head;
-            while (temp!=null){
+    public void resertLed() {
+        if (this.head != null) {
+            NodeDE temp = this.head;
+            while (temp != null) {
                 temp.getData().setState(false);
                 temp.getData().setDateOff(null);
                 temp.getData().setDateOn(null);
-                temp=temp.getNext();
+                temp = temp.getNext();
             }
         }
     }
@@ -74,11 +67,11 @@ public class ListDE {
     y si actulizo si dateOn y su dateOff la pongo nulo
      */
 
-    public void lightLed(int id){
-        if(this.head!=null){
-            NodeDE temp=this.head;
-            while (temp.getData().getId()!=id){
-                temp=temp.getNext();
+    public void lightLed(int id) {
+        if (this.head != null) {
+            NodeDE temp = this.head;
+            while (temp.getData().getId() != id) {
+                temp = temp.getNext();
             }
             temp.getData().setState(true);
             temp.getData().setDateOn(LocalTime.now());
@@ -91,13 +84,13 @@ public class ListDE {
     y  actulizo si dateOn y su dateOff la pongo nulo
      */
 
-    public void lightAllLed(){
-        if(this.head!=null){
-            NodeDE temp=this.head;
-            while (temp!=null){
+    public void lightAllLed() {
+        if (this.head != null) {
+            NodeDE temp = this.head;
+            while (temp != null) {
                 temp.getData().setState(true);
                 temp.getData().setDateOn(LocalTime.now());
-                temp=temp.getNext();
+                temp = temp.getNext();
             }
         }
     }
@@ -108,11 +101,11 @@ public class ListDE {
     y  actulizo su dateOff
      */
 
-    public void offLed(int id){
-        if(this.head!=null){
-            NodeDE temp=this.head;
-            while (temp.getData().getId()!=id){
-                temp=temp.getNext();
+    public void offLed(int id) {
+        if (this.head != null) {
+            NodeDE temp = this.head;
+            while (temp.getData().getId() != id) {
+                temp = temp.getNext();
             }
             temp.getData().setState(false);
             temp.getData().setDateOff(LocalTime.now());
@@ -125,46 +118,17 @@ public class ListDE {
     me paro en cada  bombillo y cambio su estado a false para que apgue
     y  actulizo  su dateOff
      */
-    public void offAllLed(){
-        if(this.head!=null){
-            NodeDE temp=this.head;
-            while (temp!=null){
+    public void offAllLed() {
+        if (this.head != null) {
+            NodeDE temp = this.head;
+            while (temp != null) {
                 temp.getData().setState(false);
                 temp.getData().setDateOff(LocalTime.now());
-                temp=temp.getNext();
+                temp = temp.getNext();
             }
         }
     }
 
-    //prender led anteriror
-    public void lightPreviousLed(NodeDE temp){
-            while (temp!=null){
-                temp.getPrevi().getData().setState(true);
-                temp.getData().setDateOn(LocalTime.now());
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                temp.getData().setState(false);
-                temp.getData().setDateOff(LocalTime.now());
-            }
-    }
-
-    //prender led siguiente
-    public void lightNextLed(NodeDE temp){
-        while (temp!=null){
-            temp.getNext().getData().setState(true);
-            temp.getData().setDateOn(LocalTime.now());
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            temp.getData().setState(false);
-            temp.getData().setDateOff(LocalTime.now());
-        }
-    }
 
     // pararme en la mitad de la lista y empezar a prender los leds
     /*
@@ -186,29 +150,54 @@ public class ListDE {
 
      */
 
-    public void lightLedInMiddle(){
-        if(this.head!=null){
-            int middle = this.size / 2;
-            NodeDE temp = this.head;
-            NodeDE temp2=this.head;
-            int i=0;
-            if (size%2==0){
-                if (i==middle){
-                    temp2.getData().setState(true);
-                    temp2.getData().setDateOn(LocalTime.now());
-                    temp=temp.getNext();
+    public void lightLedInMiddle() {
+
+        if (this.head!=null) {
+            if (this.head.getNext() != null) {
+
+
+                if (size % 2 == 0) {
+                    NodeDE temp = this.head;
+                    NodeDE temp2 = this.head;
+                    int middle = size / 2;
+                    for (int i = 0; i < middle; i++) {
+                        temp = temp.getNext();
+
+                    }
+                    temp2 = temp.getPrevi();
+                    while (temp2 != head) {
+                        temp2.getData().setState(true);
+                        temp2.getData().setDateOn(LocalTime.now());
+                        temp.getData().setState(true);
+                        temp.getData().setDateOn(LocalTime.now());
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        temp2.getData().setState(false);
+                        temp2.getData().setDateOff(LocalTime.now());
+                        temp.getData().setState(false);
+                        temp.getData().setDateOff(LocalTime.now());
+
+                        temp2 = temp2.getPrevi();
+                        temp = temp.getNext();
+                    }
+                    this.head.getData().setState(true);
+                    this.head.getData().setDateOn(LocalTime.now());
                     temp.getData().setState(true);
                     temp.getData().setDateOn(LocalTime.now());
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                } else {
+                    NodeDE temp = this.head;
+                    NodeDE temp2 = this.head;
+                    int middle = size + 1;
+                    middle = middle / 2;
+                    for (int i = 1; i < middle; i++) {
+                        temp = temp.getNext();
+
                     }
-                    temp2.getData().setState(false);
-                    temp2.getData().setDateOff(LocalTime.now());
-                    temp.getData().setState(false);
-                    temp.getData().setDateOff(LocalTime.now());
-                    while (temp2.getPrevi()!=this.head&&temp.getNext().getNext()!=null){
+                    temp2 = temp;
+                    while (temp2 != this.head) {
                         temp2.getData().setState(true);
                         temp2.getData().setDateOn(LocalTime.now());
                         temp.getData().setState(true);
@@ -223,54 +212,26 @@ public class ListDE {
                         temp.getData().setState(false);
                         temp.getData().setDateOff(LocalTime.now());
 
-                        temp2=temp2.getPrevi();
-                        temp=temp.getNext();
+                        temp2 = temp2.getPrevi();
+                        temp = temp.getNext();
                     }
-                }else{
-                    temp2.getData().setState(true);
-                    temp2.getData().setDateOn(LocalTime.now());
-                    temp.getData();
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    temp2.getData().setState(false);
-                    temp2.getData().setDateOff(LocalTime.now());
-                    while (temp2.getPrevi()!=this.head&&temp.getNext().getNext()!=null){
-                        temp2.getData().setState(true);
-                        temp2.getData().setDateOn(LocalTime.now());
-                        temp.getData().setState(true);
-                        temp.getData().setDateOn(LocalTime.now());
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        temp2.getData().setState(false);
-                        temp2.getData().setDateOff(LocalTime.now());
-                        temp.getData().setState(false);
-                        temp.getData().setDateOff(LocalTime.now());
-
-                        temp2=temp2.getPrevi();
-                        temp=temp.getNext();
-                    }
-
+                    this.head.getData().setState(true);
+                    this.head.getData().setDateOn(LocalTime.now());
+                    temp.getData().setState(true);
+                    temp.getData().setDateOn(LocalTime.now());
 
                 }
-
+            } else {
+                this.head.getData().setState(true);
+                this.head.getData().setDateOn(LocalTime.now());
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                this.head.getData().setState(false);
+                this.head.getData().setDateOff(LocalTime.now());
             }
-
-        }else {
-            this.head.getData().setState(true);
-            this.head.getData().setDateOn(LocalTime.now());
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            this.head.getData().setState(false);
-            this.head.getData().setDateOff(LocalTime.now());
         }
     }
 
@@ -392,5 +353,38 @@ public class ListDE {
         }
     }
      */
+
+    /*
+    //prender led anteriror
+    public void lightPreviousLed(NodeDE temp){
+            while (temp!=null){
+                temp.getPrevi().getData().setState(true);
+                temp.getData().setDateOn(LocalTime.now());
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                temp.getData().setState(false);
+                temp.getData().setDateOff(LocalTime.now());
+            }
+    }
+
+    //prender led siguiente
+    public void lightNextLed(NodeDE temp){
+        while (temp!=null){
+            temp.getNext().getData().setState(true);
+            temp.getData().setDateOn(LocalTime.now());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            temp.getData().setState(false);
+            temp.getData().setDateOff(LocalTime.now());
+        }
+    }
+
+ */
 
 }

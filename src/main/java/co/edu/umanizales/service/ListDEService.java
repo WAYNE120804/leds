@@ -7,6 +7,8 @@ import co.edu.umanizales.model.NodeDE;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Data
 @Service
 public class ListDEService {
@@ -17,7 +19,7 @@ public class ListDEService {
     public NodeDE getLeds(){return leds.getHead();}
 
     //mostral lista
-    public String putToString(){return leds.toString();}
+    public ArrayList<Led> printList(){return leds.printList();}
 
     //adicionar al final
     public void addLed(Led led) {leds.addLed(led);}

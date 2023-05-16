@@ -4,7 +4,6 @@ package co.edu.umanizales.model;
 import lombok.Data;
 
 @Data
-
 public class NodeDE {
     private Led data;
     private NodeDE next;

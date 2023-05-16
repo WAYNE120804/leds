@@ -22,7 +22,7 @@ public class ListDEController {
     @GetMapping(path ="/getlistde")
     public ResponseEntity<ResponseDTO> getLeds(){
         return new ResponseEntity<>(new ResponseDTO(
-                200,listDEService.putToString(),null), HttpStatus.OK);
+                200,listDEService.printList(),null), HttpStatus.OK);
     }
 
     //adicionar led
